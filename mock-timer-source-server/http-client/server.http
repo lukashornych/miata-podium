@@ -1,0 +1,4 @@
+### Fetch laps
+WEBSOCKET ws://localhost:3010/ws
+
+{"type":"GET_DATA","payload":""}
