@@ -101,17 +101,17 @@ where the properties represent the following fields:
 - `Tag` - RFID tag
 - `Time` - lap finish time
 - `TimePrev` - lap start time
-- `LapTime` - lap time in milliseconds
-- `TimeS1` - finish time of the first sector
-- `TimeS2` - finish time of the second sector
-- `TimeS3` - finish time of the third sector
+- `LapTime` - lap time in milliseconds, Negative values for invalid laps
+- `TimeS1` - Timestamp when the car crossed the sector-1 checkpoint
+- `TimeS2` - Timestamp when the car crossed the sector-2 checkpoint
+- `TimeS3` - Timestamp when the car crossed the finish line (end of sector 3), Always equals Time
 - `S1` - the first sector time in milliseconds
 - `S2` - the second sector time in milliseconds
 - `S3` - the third sector time in milliseconds
 - `Temp1` - Ambient air temperature (°C)
 - `Temp2` - Track surface temperature (°C)
 - `Temp3` - Relative humidity (%)
-- `Round` - relative lap number in the race for the given racer
+- `Round` - 0-indexed lap number in the race for the given racer
 - `CarNumber` - car number for the given racer (each racer has exactly one car number)
 - `Category` - race category (Open, Ultimate, Racing, Touring)
 - `Make` - car make
@@ -121,7 +121,7 @@ where the properties represent the following fields:
 - `LastName` - racer's last name
 - `Name` - race track name
 - `Date` - trackday date
-- `IsRaceLap` - whether the lap is a race lap (and will determine final racers positions in the race) or not.
+- `IsRaceLap` - Whether this lap counts toward final race standings, 1 = race lap, 0 = practice / non-scoring lap
 
 This server application accepts the accumulated lap data from the WebSocket API, but stores only unique laps in the database.
 This is checked based on uniqueness of the `id` + `raceId` fields in the database. If such a combination already exists,
