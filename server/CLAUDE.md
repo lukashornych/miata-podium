@@ -28,6 +28,7 @@ The application should follow these basic rules:
 - use Domain-Driver Design principles (like value objects, entities, entity aggregates, repositories, services, factories)
 - use final variables whenever possible
 - use vertical layered architecture, meaning that each business domain should be separated into its own package and within it should use the traditional layered architecture
+- do NOT use `var` keyword in Java code, use explicit types instead
 
 When writing Spring components, follow these rules:
 
@@ -38,7 +39,17 @@ When updating a domain model:
 
 - create an appropriate migration PostgreSQL script using Flyway
 
+When writing tests:
+
+- use JUnit 5 for unit tests
+- use Spring Boot Test framework for integration tests
+- use Testcontainers for integration tests that require a database
+
 Each class should be documented using Javadoc about what it does and why.
+
+### Database guidelines
+
+- use explicit named constraints for primary keys, foreign keys, unique constraints, etc.
 
 ### External API guidelines
 
@@ -131,6 +142,7 @@ The server separates the lap data into:
 
 - race object
 - racer object
+- category enum
 - lap object
 
 The race object is extracted based on the `RaceId` identification and the server creates a new race in the database
@@ -138,6 +150,9 @@ if such a race does not exist yet (from the `RaceId`, `Name`, and `Date` fields)
 
 The racer object is extracted based on the `RFIDId` identification and the server creates a new racer in the database
 if such a racer does not exist yet (from the `RFIDId`, `CarNumber`, `FirstName`, and `LastName` fields).
+
+The category enum is extracted based on the `Category` identification and the server creates a new category in the database
+if such a category does not exist yet (from the `Category` field).
 
 The lap stored in the database is linked to the race and racer objects and contains only the unique lap data fields (such
 as timespans, car metadata, and lap number, etc.).
