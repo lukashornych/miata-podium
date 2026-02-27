@@ -107,3 +107,17 @@ where each payload item is a single lap object:
 "IsRaceLap": 1
 }
 ```
+
+### GraphQL Frontend API
+
+The server application exposes a GraphQL API on `/graphql` path. It is read-only API and does not support any mutations
+from the frontend.
+
+It provides queries for retrieving lap data, track information, and race details. The API is designed to be used by the frontend to display
+a detailed leaderboard.
+
+The API provides the following queries:
+**todo**
+- `laps` - returns a list of all generated lap times
+- `track` - returns a single track information
+- `race` - returns a single race details
